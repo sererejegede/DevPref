@@ -19,22 +19,15 @@ public class CountService {
     @Autowired
     private DeveloperDAO developerDAO;
 
-    private List<Integer> firstLangCount = new ArrayList<>();
-    private List<Integer> secondLangCount = new ArrayList<>();
-    private List<Integer> thirdLangCount = new ArrayList<>();
-
     public void returnCount() {
         for (String language: developerDAO.getColumn()) {
             countDAO.updateCountFirst(countDAO.returnCountFirstLang(language),language);
-            firstLangCount.add(countDAO.returnCountFirstLang(language));
         }
         for (String language: developerDAO.getColumn()) {
             countDAO.updateCountSecond(countDAO.returnCountSecondLang(language),language);
-            secondLangCount.add(countDAO.returnCountSecondLang(language));
         }
         for (String language: developerDAO.getColumn()) {
             countDAO.updateCountThird(countDAO.returnCountThirdLang(language),language);
-            thirdLangCount.add(countDAO.returnCountThirdLang(language));
         }
     }
 
@@ -54,11 +47,20 @@ public class CountService {
         return integerToString(countDAO.orderedThirdLangCount());
     }
 
-    public List<String> integerToString(List<Integer> integer){
+    private List<String> integerToString(List<Integer> integer){
         List<String> newList = new ArrayList<>();
         for (Integer coming : integer) {
            newList.add(String.valueOf(coming));
         }
         return newList;
+    }
+
+    public List<String> finalAnswer(){
+        List<String> finalAnswer = new ArrayList<>();
+        finalAnswer.addAll(orderedLanguages());
+        finalAnswer.addAll(orderedFirstLangCount());
+        finalAnswer.addAll(orderedSecondLangCount());
+        finalAnswer.addAll(orderedThirdLangCount());
+        return finalAnswer;
     }
 }

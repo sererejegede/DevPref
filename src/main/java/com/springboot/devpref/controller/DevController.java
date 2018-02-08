@@ -21,12 +21,6 @@ public class DevController {
 
     @RequestMapping(value = "/")
     public ModelAndView home(ModelAndView model){
-        model.setViewName("index");
-        return model;
-    }
-
-    @GetMapping(value = "/test")
-    public ModelAndView formView(ModelAndView model){
         model.addObject("languages", getColumn());
         model.setViewName("index");
         return model;
@@ -47,17 +41,47 @@ public class DevController {
         String third = reqMap.get("third");
         List<String> newList = new ArrayList<>();
 
-        if (Objects.equals(password, developerService.getUser(username).getPassword())){
-            newList.addAll(countService.orderedLanguages());
-            newList.addAll(countService.orderedFirstLangCount());
-            newList.addAll(countService.orderedSecondLangCount());
-            newList.addAll(countService.orderedThirdLangCount());
-        }
-
         if (!"".equals(first) && first != null){
             developerService.addPreference(first, second, third, username);
+            countService.returnCount();
+        }
+
+        if (Objects.equals(password, developerService.getUser(username).getPassword())){
+            newList = countService.finalAnswer();
+        }
+
+        return newList;
+    }
+
+    //Registration
+    @PostMapping(value = "/register")
+    public List<String> addNew(Developer developer, @RequestParam Map<String, String> reqMap){
+        String username = reqMap.get("username");
+        String first = reqMap.get("firstLang");
+        String second = reqMap.get("secondLang");
+        String third = reqMap.get("thirdLang");
+
+        List<String> newList = new ArrayList<>();
+
+        if (!Objects.equals(username, developerService.getUsernameOnly(username))){
+            developerService.addNew(developer);
+            if (!"".equals(first) && first != null){
+                developerService.addPreference(first, second, third, username);
+                countService.returnCount();
+            }
+            newList = countService.finalAnswer();
         }
         return newList;
+    }
+
+    @PostMapping(value = "order")
+    public String orderedList(Developer developer, @RequestParam Map<String, String> reqMap){
+        String username = reqMap.get("username");
+        String u2 = developerService.getUsernameOnly(username);
+        if (!Objects.equals(username, u2)) {
+            developerService.addNew(developer);
+        }
+        return u2;
     }
 
     //To temporarily show registration page
@@ -66,30 +90,5 @@ public class DevController {
         mo.setViewName("view");
         return mo;
     }
-
-
-    //Registration
-    @PostMapping(value = "/register")
-    public void addNew(Developer developer, @RequestParam Map<String, String> reqMap){
-        String username = reqMap.get("username");
-        String first = reqMap.get("first");
-        String second = reqMap.get("second");
-        String third = reqMap.get("third");
-
-        developerService.addNew(developer);
-        developerService.addPreference(first, second, third, username);
-    }
-
-    @GetMapping(value = "order")
-    public List<String> orderedList(){
-        List<String> newList = new ArrayList<>();
-
-        return newList;
-    }
-
-//    @GetMapping(value = "/count")
-//    public List<Integer> returnCount(){
-//        return countService.returnCount();
-//    }
 
 }

@@ -51,8 +51,8 @@ $(document).ready(function () {
     });
 
 
-$("#hideModal").click(function (){
-//    $("#mymodal").;
+$("#hideToShow").click(function (){
+    location.reload();
 });
 $("#modal-pop").click(function(){
     VarHolder.first = $("#first").val();
@@ -112,17 +112,17 @@ $("#modal-pop").click(function(){
                         $("<span>").html(counted2[index]).addClass("badge badge-warning float-right").prependTo($jag);
                         $("<span>").html(counted3[index]).addClass("badge badge-danger float-right").prependTo($jag);
                     });
-                    $("#home").css("display","block");
                     $("#loginDiv").replaceWith(list);
                     $("#myModal").modal('hide');
                     $("#disp").html("");
                     $("#username").html("");
                     $("#password").html("");
+                    $("#hideToShow").css("display","block");
                 }
 
         }
-        else if(typeof result === "string"){
-            $("#disp").html(result);
+        else {
+            $("#disp").html("Something went wrong");
         }
              
         }
@@ -170,38 +170,36 @@ $("#modal-pop").click(function(){
                username: usernameR,
                password: passwordR,
                email: email,
-               first: VarHolder.first,
-               second: VarHolder.second,
-               third: VarHolder.third
+               firstLang: VarHolder.first,
+               secondLang: VarHolder.second,
+               thirdLang: VarHolder.third
            },
            success: function(print){
 
 
             if (typeof print === "object"){
-                alert("I'm a object");
-                // var countL = print[0];
-                // var counted = print[1];
-                // var counted2 = print[2];
-                // var counted3 = print[3];
-                //
-                // var list = $("#list");
-                // var $create = $('<ul>').addClass("list-group").appendTo(list);
-                // var hj = 14;
-                // var u = 29;
-                // $.each(countL, function(index, item){
-                //   var $jag = $("<li>").html(item).addClass("list-group-item lis").appendTo($create);
-                //   hj++;
-                //   u++;
-                //
-                //    $("<span>").html(counted[index]).addClass("badge badge-success float-right").appendTo($jag);
-                //    $("<span>").html(counted2[hj]).addClass("badge badge-warning float-right").prependTo($jag);
-                //    $("<span>").html(counted3[u]).addClass("badge badge-danger float-right").prependTo($jag);
-                // });
-                // $("#loginDiv").replaceWith(list);
-                // $("#myModal").modal('hide');
-                // $("#disp").html("");
-                // $("#username").html("");
-                // $("#password").html("");
+                if (print.length === 0){$("#disp").html("Username is taken!");}
+                var countL = print.slice(0 , print.length/4);
+                var counted = print.slice(print.length/4, print.length/2);
+                var counted2 = print.slice(print.length/2, (print.length*3)/4);
+                var counted3 = print.slice((print.length*3)/4, print.length);
+
+                var list = $("#list");
+                var $create = $('<ul>').addClass("list-group").appendTo(list);
+
+                $.each(countL, function(index, item){
+                  var $jag = $("<li>").html(item).addClass("list-group-item lis").appendTo($create);
+
+                   $("<span>").html(counted[index]).addClass("badge badge-success float-right").appendTo($jag);
+                   $("<span>").html(counted2[index]).addClass("badge badge-warning float-right").prependTo($jag);
+                   $("<span>").html(counted3[index]).addClass("badge badge-danger float-right").prependTo($jag);
+                });
+                $("#loginDiv").replaceWith(list);
+                $("#myModal").modal('hide');
+                $("#disp").html("");
+                $("#username").html("");
+                $("#password").html("");
+                $("#hideToShow").css("display","block");
             
         } 
         else if(typeof print === "string"){

@@ -21,12 +21,16 @@ public class DeveloperService {
     }
 
     //Creating new user
-    public Developer addNew(Developer developer) {
-        return developerDAO.save(developer);
+    public void addNew(Developer developer) {
+        developerDAO.save(developer);
     }
 
     public Developer getUser(String username) {
         return developerDAO.findByUsername(username);
+    }
+
+    public String getUsernameOnly(String username) {
+        return developerDAO.getUsernameOnly(username);
     }
 
     //Adding the languages to the db

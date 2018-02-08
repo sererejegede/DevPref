@@ -19,3 +19,7 @@ label{color: gray}
     padding: 10px 0 !important;
     margin-bottom: 10px;
 }
+
+.hide{
+    display: none;
+}

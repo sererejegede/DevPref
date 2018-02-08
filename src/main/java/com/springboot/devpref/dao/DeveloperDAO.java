@@ -19,6 +19,8 @@ public interface DeveloperDAO extends CrudRepository<Developer, Integer>{
 
     Developer findByUsername(String username);
 
+    @Query(nativeQuery = true, value = "SELECT username FROM developer WHERE username = ?1")
+    String getUsernameOnly(String username);
 
     @Modifying
     @Transactional
