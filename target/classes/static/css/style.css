@@ -1,0 +1,21 @@
+.masthead{
+    display:table;
+    width:100%;
+    height:auto;
+    padding:200px 0;
+    text-align:center;
+    color:#fff;
+    background:url(../img/intro-bg.jpg) no-repeat bottom center scroll !important;
+    background-color:#000;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover
+}
+
+label{color: gray}
+
+.input-padding{
+    padding: 10px 0 !important;
+    margin-bottom: 10px;
+}
