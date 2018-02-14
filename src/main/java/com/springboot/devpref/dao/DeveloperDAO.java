@@ -27,4 +27,9 @@ public interface DeveloperDAO extends CrudRepository<Developer, Integer>{
     @Query(nativeQuery = true, value = "UPDATE developer SET first_lang = ?1, second_lang = ?2, third_lang = ?3 WHERE username = ?4")
     void addPreference(String first, String second, String third, String username);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "UPDATE developer SET role = ?1 WHERE username = ?2")
+    void setRole(byte role, String username);
+
 }

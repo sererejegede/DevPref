@@ -1,5 +1,7 @@
 package com.springboot.devpref.controller;
 
+import com.springboot.devpref.Role;
+import com.springboot.devpref.entity.Choice;
 import com.springboot.devpref.entity.Developer;
 import com.springboot.devpref.service.CountService;
 import com.springboot.devpref.service.DeveloperService;
@@ -29,6 +31,35 @@ public class DevController {
     @GetMapping(value = "/view")
     public List<String> getColumn(){
         return developerService.getColumn();
+    }
+
+    //Admin Section
+    @PostMapping(value = "addLanguage")
+    public String addLanguage(Choice choice, @RequestParam Map<String, String> rp) {
+
+        String username = rp.get("username");
+        String progName = rp.get("progName");
+        String success = "There was an error";
+        if (developerService.getUser(username).getRole() ==0){
+            success = "Admin Privilege Required";
+        }
+        else if (developerService.getUser(username).getRole() == 1) {
+
+            if (choice.getFirstLang() == null) {
+                choice.setFirstLang(0);
+            }
+            if (choice.getSecondLang() == null) {
+                choice.setSecondLang(0);
+            }
+            if (choice.getThirdLang() == null) {
+                choice.setThirdLang(0);
+            }
+            if (!"".equals(progName) && progName != null) {
+                developerService.addLanguage(choice);
+                success = "Success";
+            }
+        }
+        return success;
     }
 
     //Login things
@@ -89,6 +120,13 @@ public class DevController {
     public ModelAndView m(ModelAndView mo){
         mo.setViewName("view");
         return mo;
+    }
+
+    @GetMapping(value = "/enum/{username}")
+    public byte mo(@PathVariable("username") String serere){
+        byte role = 1;
+        developerService.setRole(role, serere);
+        return developerService.getUser(serere).getRole();
     }
 
 }

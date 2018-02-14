@@ -23,15 +23,7 @@ public class Choice {
     @Column(name = "third_lang")
     private Integer thirdLang;
 
-    public Integer getDevId() {
-        return devId;
-    }
-
-    public void setDevId(Integer devId) {
-        this.devId = devId;
-    }
-
-    public String getProgName() {
+   public String getProgName() {
         return progName;
     }
 

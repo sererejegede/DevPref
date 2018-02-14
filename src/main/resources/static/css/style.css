@@ -23,3 +23,7 @@ label{color: gray}
 .hide{
     display: none;
 }
+
+.fl_right{
+    float: right;
+}

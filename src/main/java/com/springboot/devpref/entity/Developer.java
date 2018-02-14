@@ -1,5 +1,7 @@
 package com.springboot.devpref.entity;
 
+import com.springboot.devpref.Role;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,9 @@ public class Developer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "dev_id")
     private Integer devId;
+
+    @Column(name = "role", columnDefinition = "tinyint(4) default '0'")
+    private byte role;
 
     @Column(name = "firstname", length = 30)
     private String firstname;
@@ -35,8 +40,8 @@ public class Developer {
     @Column(name = "third_lang")
     private String thirdLang;
 
-    //Getters and Setters
 
+    //Getters and Setters
 
     public Integer getDevId() {
         return devId;
@@ -44,6 +49,14 @@ public class Developer {
 
     public void setDevId(Integer devId) {
         this.devId = devId;
+    }
+
+    public byte getRole() {
+        return role;
+    }
+
+    public void setRole(byte role) {
+        this.role = role;
     }
 
     public String getUsername() {

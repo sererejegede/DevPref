@@ -97,13 +97,33 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><button id="modal-pop" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                            Submit
-                                        </button></td>
+                                        <td colspan="2">
+                                            <button id="modal-pop" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Submit
+                                            </button>
+                                        </td>
                                     </tr>
                                 </table>
                             </form>
-
+                            <button id="displayAdd" data-toggle="modal" data-target="#showLanguageAdd" class="btn-info fl_right"> + </button>
+                            <div class="modal fade" id="showLanguageAdd">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                        <h4 id="erro">This is only for Administrators</h4>
+                                        <form action="/addLanguage">
+                                            <input class="input-group input-padding" id="usernameA" type="text" name="username"/>
+                                            <label for="usernameA">Username</label><br/>
+                                            <input class="input-group input-padding" id="passwordA" type="password" name="password"/>
+                                            <label for="passwordA">Password</label><br/>
+                                            <input class="input-group input-padding" type="text" id="progName" name="progName"/>
+                                            <label for="progName">New Language</label><br/><br/>
+                                            <button class="btn btn-success" id="addLanguage" type="button">Add Your Own Language</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-7" id="list">
