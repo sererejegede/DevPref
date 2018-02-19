@@ -36,29 +36,49 @@ public class DevController {
     //Admin Section
     @PostMapping(value = "addLanguage")
     public String addLanguage(Choice choice, @RequestParam Map<String, String> rp) {
-
-        String username = rp.get("username");
-        String progName = rp.get("progName");
         String success = "There was an error";
-        if (developerService.getUser(username).getRole() ==0){
-            success = "Admin Privilege Required";
-        }
-        else if (developerService.getUser(username).getRole() == 1) {
 
-            if (choice.getFirstLang() == null) {
-                choice.setFirstLang(0);
+        if (rp.get("username").isEmpty()){
+            success = "Username required";
+        }
+        else if (rp.get("password").isEmpty()){
+            success = "Password required";
+        }
+        else if (rp.get("progName").isEmpty()){
+            success = "The language field cannot be left empty";
+        }
+
+        if(!(rp.get("username").isEmpty()) && !(rp.get("password").isEmpty())&& !(rp.get("progName").isEmpty())){
+            String username = rp.get("username");
+            String password = rp.get("password");
+            String progName = rp.get("progName");
+            Developer developer = developerService.getUser(username);
+
+            if (developer.getRole() == 0){
+                success = "Admin Privilege Required";
             }
-            if (choice.getSecondLang() == null) {
-                choice.setSecondLang(0);
-            }
-            if (choice.getThirdLang() == null) {
-                choice.setThirdLang(0);
-            }
-            if (!"".equals(progName) && progName != null) {
-                developerService.addLanguage(choice);
-                success = "Success";
+            else if (developer.getRole() == 1) {
+                if (!Objects.equals(developer.getPassword(), password)){
+                    success = "Admin password incorrect!";
+                }
+                else{
+                    if (!"".equals(progName) && progName != null) {
+                        developerService.addLanguage(choice);
+                        success = "Success";
+                    }
+                }
+//            if (choice.getFirstLang() == null) {
+//                choice.setFirstLang(0);
+//            }
+//            if (choice.getSecondLang() == null) {
+//                choice.setSecondLang(0);
+//            }
+//            if (choice.getThirdLang() == null) {
+//                choice.setThirdLang(0);
+//            }
             }
         }
+
         return success;
     }
 

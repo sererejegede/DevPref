@@ -210,32 +210,34 @@ $login.click(function(){
         var progName = $("#progName").val();
         var userName = $("#usernameA").val();
         var passWord = $("#passwordA").val();
-        if(progName === ""){
-            $("#erro").html("You have to specify the language");
-        } else {
-            var progname = progName;
-        }
-        if(userName === ""){
-            $("#erro").html("Input Username");
-        } else {
-            if(passWord === ""){
-                $("#erro").html("Input Password");
-            } else {
-                var password = passWord;
-            }
-            var username = userName;
-        }
+        // if(progName === ""){
+        //     $("#erro").html("You have to specify the language");
+        // } else {
+        //     var progname = progName;
+        // }
+        // if(userName === ""){
+        //     $("#erro").html("Input Username");
+        // } else {
+        //     if(passWord === ""){
+        //         $("#erro").html("Input Password");
+        //     } else {
+        //         var password = passWord;
+        //     }
+        //     var username = userName;
+        // }
         $.ajax({
             url: "/addLanguage",
             type: "post",
             data: {
-                progName: progname,
-                username: username,
-                password: password
+                progName: progName,
+                username: userName,
+                password: passWord
             },
             success: function (success) {
                 alert(success);
-                location.reload();
+                if (success === "Success"){
+                    location.reload();
+                }
             }
         });
     });

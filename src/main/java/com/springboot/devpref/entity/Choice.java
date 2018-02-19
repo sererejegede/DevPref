@@ -15,13 +15,13 @@ public class Choice {
     private String progName;
 
     @Column(name = "first_lang")
-    private Integer firstLang;
+    private Integer firstLang = 0;
 
     @Column(name = "second_lang")
-    private Integer secondLang;
+    private Integer secondLang = 0;
 
     @Column(name = "third_lang")
-    private Integer thirdLang;
+    private Integer thirdLang = 0;
 
    public String getProgName() {
         return progName;
