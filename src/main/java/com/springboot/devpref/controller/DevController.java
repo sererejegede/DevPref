@@ -67,15 +67,6 @@ public class DevController {
                         success = "Success";
                     }
                 }
-//            if (choice.getFirstLang() == null) {
-//                choice.setFirstLang(0);
-//            }
-//            if (choice.getSecondLang() == null) {
-//                choice.setSecondLang(0);
-//            }
-//            if (choice.getThirdLang() == null) {
-//                choice.setThirdLang(0);
-//            }
             }
         }
 
